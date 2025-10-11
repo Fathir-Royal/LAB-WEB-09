@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UNO: Call of Duty WWII</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cod-green': '#4b5320',   // olive drab tentara WWII
+            'cod-dark': '#1a1c1a',    // hitam matte
+            'cod-metal': '#5c5c5c',   // logam tua
+            'cod-sand': '#a99470',    // pasir / seragam
+            'cod-blood': '#8b0000'    // merah gelap darah
+          },
+          fontFamily: { war: ['"Courier New"', 'monospace'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: linear-gradient(180deg, #3e3b31, #1a1c1a);
+      font-family: "Courier New", monospace;
+    }
+    .card {
+      width:78px; height:110px;
+      transform-style:preserve-3d;
+      transition:transform .45s;
+    }
+    .flip { transform:rotateY(180deg); }
+    .card img {
+      width:100%; height:100%;
+      border-radius:8px;
+      backface-visibility:hidden;
+      box-shadow:0 6px 12px rgba(0,0,0,.6);
+      filter: brightness(0.9) saturate(0.85); /* kurangi saturasi agar tidak terlalu arcade */
+    }
+    header {
+      background: linear-gradient(90deg, #1a1c1a, #2a2c28);
+      border: 1px solid #5c5c5c;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+    button {
+      transition: background-color .2s, transform .2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="font-war text-gray-200 min-h-screen flex flex-col items-center p-4">
+
+  <header class="w-full flex items-center justify-between p-3 rounded-md">
+    <h1 class="text-xl text-[#d4c36a] tracking-wider font-bold">
+      UNO — Call of Duty: WWII
+    </h1>
+    <div id="status" class="text-sm text-gray-300 italic">Tekan Mulai untuk bermain</div>
+    <div class="flex items-center gap-3">
+      <span id="saldo" class="text-sm">💰 Saldo: $5000</span>
+      <input id="taruhan" type="number" min="100" value="500"
+        class="w-24 text-center rounded bg-cod-green text-white border border-cod-metal focus:outline-none" />
+      <button id="mulaiBtn" class="bg-cod-sand hover:bg-yellow-700 text-black px-3 py-1 rounded font-bold shadow-md">
+        Mulai
+      </button>
+    </div>
+  </header>
+
+  <!-- Bot -->
+  <section id="botArea" class="w-full flex justify-center gap-2 mt-6"></section>
+
+  <!-- Tengah: deck & discard -->
+  <main class="flex items-center gap-8 my-6">
+    <div id="deck" class="card">
+      <img src="assets/card_back.png" alt="deck" />
+    </div>
+    <div id="discard" class="card">
+      <img src="assets/card_back.png" alt="discard" />
+    </div>
+  </main>
+
+  <!-- Player -->
+  <section id="playerArea" class="w-full flex justify-center gap-2 mb-6 flex-wrap"></section>
+
+  <!-- UNO button -->
+  <div class="mb-6">
+    <button id="unoBtn"
+      class="px-4 py-2 bg-cod-blood hover:bg-red-800 text-white rounded-lg font-bold shadow-xl transition duration-150 transform hover:scale-105 hidden">
+      UNO!
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
